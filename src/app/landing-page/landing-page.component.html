@@ -1,0 +1,84 @@
+<div class="p10 bg-color ">
+    <header class="m10">
+        <h1>SpaceX Launch Programs</h1>
+    </header>
+    <div class="container-body container-center">
+        <div class="card mr10 ">
+            <h4 class="m0">Filters</h4>
+            <div>
+                <div class="flex-box flex-center font-label">Launch Year</div>
+                <hr class="hr-bar">
+                <div class="launch-container">
+                    <div *ngFor="let year of launchYears; let i = index">
+                        <button class="btn" (click)="debounced(year);this.selectedYear = year;"
+                            [ngClass]="{ 'selected': year==selectedYear  }"> {{year}}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="mt20">
+                <div class="flex-box flex-center font-label ">Successful Launch</div>
+                <hr class="hr-bar">
+                <div class="launch-container">
+                    <button (click)="debounced(true);this.islaunchSuccessful = true;this.islaunchTrue='yes';"
+                        class="btn" [ngClass]="{ 'selected': islaunchTrue == 'yes'  }">True</button>
+                    <button (click)="debounced(false);this.islaunchSuccessful = false;this.islaunchTrue='no';"
+                        class="btn" [ngClass]="{ 'selected': islaunchTrue == 'no'  }">False</button>
+                </div>
+            </div>
+            <div class="mt20">
+                <div class="flex-box flex-center font-label ">Successful Landing</div>
+                <hr class="hr-bar">
+                <div class="launch-container">
+                    <button (click)="debounced(true);this.islandedSuccessful = true;this.islandedTrue='yes';"
+                        class="btn" [ngClass]="{ 'selected': islandedTrue == 'yes'  }">True</button>
+                    <button (click)="debounced(false);this.islandedSuccessful = false;this.islandedTrue='no';"
+                        class="btn" [ngClass]="{ 'selected': islandedTrue == 'no'  }">False</button>
+                </div>
+            </div>
+        </div>
+        <div class="missions-container">
+            <ng-container *ngIf="spaceXData.length; else noDataFound">
+                <div class="card-items" *ngFor="let data of spaceXData; let i = index">
+                    <img height="150px" loading="lazy" width="200px" src="{{data.links.mission_patch_small}}"
+                        class="center-img bg-color" />
+                    <div class="row m0 mt5">
+                        <strong class="mission-name mt12">{{data.mission_name}}#{{i+1}}</strong>
+                    </div>
+                    <div class="row m0 mt5">
+                        <strong>Mission Ids</strong>
+                        <ul>
+                            <ng-container *ngIf="data.mission_id.length;else notAvailable">
+                                <li *ngFor="let id of data.mission_id">
+                                    {{id}}
+                                </li>
+                            </ng-container>
+                            <ng-template #notAvailable>
+                                <li>
+                                    Not Yet Available
+                                </li>
+                            </ng-template>
+                        </ul>
+                    </div>
+                    <div class="row m0 mt5">
+                        <strong>Launch Year:</strong>
+                        <span> {{ data.launch_year}}</span>
+                    </div>
+                    <div class="row m0 mt5">
+                        <strong>Successful Launch:</strong>
+                        <span> {{data.launch_success}} </span>
+                    </div>
+                    <div class="row m0 mt5">
+                        <strong>Successful Landing:</strong>
+                        <span> {{ data.rocket.first_stage.cores[0].land_success }}</span>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #noDataFound>
+                <h4>No Data Available!</h4>
+            </ng-template>
+        </div>
+    </div>
+    <footer class="footer-container">
+        <h4 class="center footer-label">Developed by: Nikita Raizada</h4>
+    </footer>
+</div>
