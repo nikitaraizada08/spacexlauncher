@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
 import { Subject } from 'rxjs';
-import { Router } from '@angular/router';
 import {​​ Location }​​ from '@angular/common';
 
 @Component({
@@ -53,7 +52,9 @@ export class LandingPageComponent implements OnInit {
   public previousLaunchValue: string;
   public previousSelectedValue: number;
 
-  constructor(private httpservice: HttpService, private router: Router, private location: Location) { }
+  constructor(private httpservice: HttpService, private location: Location) { 
+      this.launchYears = [];
+    }
 
   ngOnInit() {
     for(let i = 0 ; i < 15; i++ ) {
@@ -74,16 +75,20 @@ export class LandingPageComponent implements OnInit {
     });
   }
   navigate() {
+    const selectedyear= this.selectedYear ? this.selectedYear : '';
       if (this.islaunchTrue === "") {
         this.spaceXData = this.fetchedData.filter((data) => {
+          this.location.replaceState(selectedyear+'/'+ this.islandedSuccessful);
           return data.rocket.first_stage.cores[0].land_success === this.islandedSuccessful;
         });
       } else if (this.islandedTrue === "") {
         this.spaceXData = this.fetchedData.filter((data) => {
+          this.location.replaceState(selectedyear+'/'+ this.islaunchSuccessful);
           return data.launch_success === this.islaunchSuccessful;
         });
       } else {
         this.spaceXData = this.fetchedData.filter((data) => {
+          this.location.replaceState(selectedyear+'/'+this.islandedTrue+'/'+ this.islaunchSuccessful);
           return data.launch_success === this.islaunchSuccessful && data.rocket.first_stage.cores[0].land_success === this.islandedSuccessful;
         });
       }
