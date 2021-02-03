@@ -97,7 +97,7 @@ export class LandingPageComponent implements OnInit {
   filterYears(year) {
     this.spaceXData =  this.fetchedData.filter((data) => {
       this.location.replaceState(year.year);
-      !year.checked
+      year.checked = !year.checked
       if(year.checked) {
         return data.launch_year === year.year;
       } else {
