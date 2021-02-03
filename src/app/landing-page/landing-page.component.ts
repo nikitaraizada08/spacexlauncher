@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
-
+import {​​ Location }​​ from '@angular/common';
 
 @Component({
   selector: 'app-landing-page',
@@ -22,7 +22,7 @@ export class LandingPageComponent implements OnInit {
   /**
    * Array storing launch years starting from 2006 to 2020 
    */
-  public launchYears: Array<number>;
+  public launchYears: Array<{year:number; checked:boolean}>;
   /**
    * Stores launch value
    */
@@ -48,12 +48,21 @@ export class LandingPageComponent implements OnInit {
    */
   public selectedYear: number;
 
-  constructor(private httpservice: HttpService, private router: Router) { }
+  public previousLandedValue: string;
+
+  public previousLaunchValue: string;
+  public previousSelectedValue: number;
+
+  constructor(private httpservice: HttpService, private router: Router, private location: Location) { }
 
   ngOnInit() {
-    this.launchYears = [...Array(15).keys()].map(a => a + 2006 );
+    for(let i = 0 ; i < 15; i++ ) {
+      this.launchYears.push({year: i + 2006 , checked: false })
+    }
     this.islaunchTrue = "";
     this.islandedTrue = "";
+    this.previousLaunchValue = "";
+    this.previousLandedValue = "";
     this.islaunchSuccessful=false;
     this.islandedSuccessful=false;
     this.getspaceXInfo();
@@ -65,26 +74,6 @@ export class LandingPageComponent implements OnInit {
     });
   }
   navigate() {
-    if (this.selectedYear) {
-      if (this.islaunchTrue === "" && this.islandedTrue === "") {
-        this.spaceXData = this.fetchedData.filter((data) => {
-          return data.launch_year === this.selectedYear.toString();
-        });
-      } else if (this.islaunchTrue === "") {
-        this.spaceXData = this.fetchedData.filter((data) => {
-          return data.launch_year === this.selectedYear.toString() && data.rocket.first_stage.cores[0].land_success === this.islandedSuccessful;
-        });
-      } else if (this.islandedTrue === "") {
-        this.spaceXData = this.fetchedData.filter((data) => {
-          return data.launch_year === this.selectedYear.toString() && data.launch_success === this.islaunchSuccessful;
-        });
-      } else {
-        this.spaceXData = this.fetchedData.filter((data) => {
-          return data.launch_year === this.selectedYear.toString() && data.launch_success === this.islaunchSuccessful && data.rocket.first_stage.cores[0].land_success === this.islandedSuccessful;
-        });
-      }
-    }
-    else {
       if (this.islaunchTrue === "") {
         this.spaceXData = this.fetchedData.filter((data) => {
           return data.rocket.first_stage.cores[0].land_success === this.islandedSuccessful;
@@ -99,7 +88,19 @@ export class LandingPageComponent implements OnInit {
         });
       }
     }
+
+  filterYears(year) {
+    this.spaceXData =  this.fetchedData.filter((data) => {
+      this.location.replaceState(year.year);
+      !year.checked
+      if(year.checked) {
+        return data.launch_year === year.year;
+      } else {
+        return this.fetchedData;
+      }
+    })
   }
+
 
   // debouncing
   waitForSomeTime<Params extends any[]>(fn: (...args: Params) => any, delay: number) {

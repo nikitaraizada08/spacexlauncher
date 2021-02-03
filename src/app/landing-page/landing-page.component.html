@@ -10,8 +10,8 @@
                 <hr class="hr-bar">
                 <div class="launch-container">
                     <div *ngFor="let year of launchYears; let i = index">
-                        <button class="btn" (click)="debounced(year);this.selectedYear = year;"
-                            [ngClass]="{ 'selected': year==selectedYear  }"> {{year}}</button>
+                        <button class="btn" (click)="filterYears(year);this.selectedYear = year.year;"
+                            [ngClass]="{ 'selected': year.checked  }"> {{year.year}}</button>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
         <div class="missions-container">
             <ng-container *ngIf="spaceXData.length; else noDataFound">
                 <div class="card-items" *ngFor="let data of spaceXData; let i = index">
-                    <img height="150px" loading="lazy" width="200px" src="{{data.links.mission_patch_small}}"
+                    <img height="150px" loading="lazy" width="180px" src="{{data.links.mission_patch_small}}"
                         class="center-img bg-color" />
                     <div class="row m0 mt5">
                         <strong class="mission-name mt12">{{data.mission_name}}#{{i+1}}</strong>
