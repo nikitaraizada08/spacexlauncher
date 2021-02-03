@@ -99,7 +99,7 @@ export class LandingPageComponent implements OnInit {
       this.location.replaceState(year.year);
       year.checked = !year.checked
       if(year.checked) {
-        return data.launch_year === year.year;
+        return data.launch_year === String(year.year);
       } else {
         return this.fetchedData;
       }
