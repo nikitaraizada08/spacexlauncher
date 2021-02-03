@@ -65,11 +65,15 @@
                     </div>
                     <div class="row m0 mt5">
                         <strong>Successful Launch:</strong>
-                        <span> {{data.launch_success || 'N/A'}} </span>
+                        <span *ngIf="data?.launch_success; else na"> 
+                            {{data.launch_success}} </span>
+                        <ng-template #na>N/A </ng-template>
                     </div>
                     <div class="row m0 mt5">
                         <strong>Successful Landing:</strong>
-                        <span> {{ data.rocket.first_stage.cores[0].land_success || 'N/A'}}</span>
+                        <span *ngIf="data.rocket.first_stage.cores[0].land_success; else na">
+                             {{ data.rocket.first_stage.cores[0].land_success }}</span>
+                        <ng-template #na>N/A </ng-template>
                     </div>
                 </div>
             </ng-container>
