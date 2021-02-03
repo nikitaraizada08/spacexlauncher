@@ -11,7 +11,7 @@
                 <div class="launch-container">
                     <div *ngFor="let year of launchYears; let i = index">
                         <button class="btn" (click)="filterYears(year);this.selectedYear = year.year;"
-                            [ngClass]="{ 'selected': year.checked  }"> {{year.year}}</button>
+                            [ngClass]="year.checked ? 'selected' : ''"> {{year.year}}</button>
                     </div>
                 </div>
             </div>
