@@ -76,7 +76,9 @@ export class LandingPageComponent implements OnInit {
   }
   navigate(year?: {year:number,checked:boolean}) {
     const selectedyear= this.selectedYear ? this.selectedYear : '';
+    console.log('year'+ year);
     if (this.selectedYear) {
+      console.log('if'+ year);
       this.launchYears.filter((data) => {
           if(data.year !== year.year) {
             data.checked = false;
@@ -103,6 +105,7 @@ export class LandingPageComponent implements OnInit {
       }
     }
      else {
+      console.log('else'+ year);
        if (this.islaunchTrue === "") {
         this.spaceXData = this.fetchedData.filter((data) => {
           this.location.replaceState(selectedyear+'/'+ this.islandedSuccessful);
