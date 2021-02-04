@@ -74,9 +74,36 @@ export class LandingPageComponent implements OnInit {
       this.spaceXData = this.fetchedData;
     });
   }
-  navigate() {
+  navigate(year?: {year:number,checked:boolean}) {
     const selectedyear= this.selectedYear ? this.selectedYear : '';
-      if (this.islaunchTrue === "") {
+    if (this.selectedYear) {
+      this.launchYears.filter((data) => {
+          if(data.year !== year.year) {
+            data.checked = false;
+          }
+        })
+        year.checked = !year.checked;
+        this.location.replaceState(String(this.selectedYear));
+      if (this.islaunchTrue === "" && this.islandedTrue === "") {
+        this.spaceXData = this.fetchedData.filter((data) => {
+          return data.launch_year === this.selectedYear.toString();
+        });
+      } else if (this.islaunchTrue === "") {
+        this.spaceXData = this.fetchedData.filter((data) => {
+          return data.launch_year === this.selectedYear.toString() && data.rocket.first_stage.cores[0].land_success === this.islandedSuccessful;
+        });
+      } else if (this.islandedTrue === "") {
+        this.spaceXData = this.fetchedData.filter((data) => {
+          return data.launch_year === this.selectedYear.toString() && data.launch_success === this.islaunchSuccessful;
+        });
+      } else {
+        this.spaceXData = this.fetchedData.filter((data) => {
+          return data.launch_year === this.selectedYear.toString() && data.launch_success === this.islaunchSuccessful && data.rocket.first_stage.cores[0].land_success === this.islandedSuccessful;
+        });
+      }
+    }
+     else {
+       if (this.islaunchTrue === "") {
         this.spaceXData = this.fetchedData.filter((data) => {
           this.location.replaceState(selectedyear+'/'+ this.islandedSuccessful);
           return data.rocket.first_stage.cores[0].land_success === this.islandedSuccessful;
@@ -93,24 +120,25 @@ export class LandingPageComponent implements OnInit {
         });
       }
     }
+  }
 
   filterYears(year) {
-    this.launchYears.filter((data) => {
-      if(data.year !== year.year) {
-        data.checked = false;
-      }
-    })
-    year.checked = !year.checked;
-    this.location.replaceState(year.year);
-    this.spaceXData =  this.fetchedData.filter((data) => {
-      if(year.checked) {
-        console.log('if'+ year);
-        return data.launch_year === String(year.year);
-      } else {
-        console.log('el' + year);
-        return this.fetchedData;
-      }
-    })
+    // this.launchYears.filter((data) => {
+    //   if(data.year !== year.year) {
+    //     data.checked = false;
+    //   }
+    // })
+    // year.checked = !year.checked;
+    // this.location.replaceState(year.year);
+    // this.spaceXData =  this.fetchedData.filter((data) => {
+    //   if(year.checked) {
+    //     return data.launch_year === String(year.year);
+    //   } else {
+    //     return this.fetchedData;
+    //   }
+    // })
+
+    this.navigate(year);
   }
 
 
