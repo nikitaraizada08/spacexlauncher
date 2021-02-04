@@ -81,7 +81,7 @@ export class LandingPageComponent implements OnInit {
       }
     })
     year.checked = !year.checked;
-    this.location.replaceState(String(this.selectedYear));
+    this.location.replaceState(String(year.year));
     const selectedyear= this.selectedYear ? this.selectedYear : '';
     console.log('year'+ year.year);
     console.log('checked'+ year.checked);
@@ -89,19 +89,19 @@ export class LandingPageComponent implements OnInit {
       console.log('if'+ year);
       if (this.islaunchTrue === "" && this.islandedTrue === "") {
         this.spaceXData = this.fetchedData.filter((data) => {
-          return data.launch_year === this.selectedYear.toString();
+          return data.launch_year === String(year.year);
         });
       } else if (this.islaunchTrue === "") {
         this.spaceXData = this.fetchedData.filter((data) => {
-          return data.launch_year === this.selectedYear.toString() && data.rocket.first_stage.cores[0].land_success === this.islandedSuccessful;
+          return data.launch_year === String(year.year) && data.rocket.first_stage.cores[0].land_success === this.islandedSuccessful;
         });
       } else if (this.islandedTrue === "") {
         this.spaceXData = this.fetchedData.filter((data) => {
-          return data.launch_year === this.selectedYear.toString() && data.launch_success === this.islaunchSuccessful;
+          return data.launch_year === String(year.year) && data.launch_success === this.islaunchSuccessful;
         });
       } else {
         this.spaceXData = this.fetchedData.filter((data) => {
-          return data.launch_year === this.selectedYear.toString() && data.launch_success === this.islaunchSuccessful && data.rocket.first_stage.cores[0].land_success === this.islandedSuccessful;
+          return data.launch_year === String(year.year) && data.launch_success === this.islaunchSuccessful && data.rocket.first_stage.cores[0].land_success === this.islandedSuccessful;
         });
       }
     }
