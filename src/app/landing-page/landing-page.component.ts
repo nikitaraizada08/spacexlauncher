@@ -83,8 +83,9 @@ export class LandingPageComponent implements OnInit {
     year.checked = !year.checked;
     this.location.replaceState(String(this.selectedYear));
     const selectedyear= this.selectedYear ? this.selectedYear : '';
-    console.log('year'+ year);
-    if (this.selectedYear) {
+    console.log('year'+ year.year);
+    console.log('checked'+ year.checked);
+    if (this.selectedYear || year.year) {
       console.log('if'+ year);
       if (this.islaunchTrue === "" && this.islandedTrue === "") {
         this.spaceXData = this.fetchedData.filter((data) => {
