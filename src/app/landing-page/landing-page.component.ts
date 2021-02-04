@@ -109,16 +109,19 @@ export class LandingPageComponent implements OnInit {
       console.log('else'+ year);
        if (this.islaunchTrue === "") {
         this.spaceXData = this.fetchedData.filter((data) => {
+          console.log('isLand');
           this.location.replaceState(selectedyear+'/'+ this.islandedSuccessful);
           return data.rocket.first_stage.cores[0].land_success === this.islandedSuccessful;
         });
       } else if (this.islandedTrue === "") {
         this.spaceXData = this.fetchedData.filter((data) => {
+          console.log('isLaunch');
           this.location.replaceState(selectedyear+'/'+ this.islaunchSuccessful);
           return data.launch_success === this.islaunchSuccessful;
         });
       } else {
         this.spaceXData = this.fetchedData.filter((data) => {
+          console.log('isLandisLaunch');
           this.location.replaceState(selectedyear+'/'+this.islandedTrue+'/'+ this.islaunchSuccessful);
           return data.launch_success === this.islaunchSuccessful && data.rocket.first_stage.cores[0].land_success === this.islandedSuccessful;
         });
