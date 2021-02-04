@@ -107,7 +107,11 @@ export class LandingPageComponent implements OnInit {
     }
      else {
       console.log('else'+ year);
-       if (this.islaunchTrue === "") {
+      if(!this.selectedYear && this.islandedTrue === '' && this.islaunchTrue === '') {
+        console.log('all');
+        this.spaceXData = this.fetchedData;
+      } 
+       else if (this.islaunchTrue === "") {
         this.spaceXData = this.fetchedData.filter((data) => {
           console.log('isLand');
           this.location.replaceState(selectedyear+'/'+ this.islandedSuccessful);
