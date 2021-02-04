@@ -75,17 +75,17 @@ export class LandingPageComponent implements OnInit {
     });
   }
   navigate(year?: {year:number,checked:boolean}) {
+    this.launchYears.filter((data) => {
+      if(data.year !== year.year) {
+        data.checked = false;
+      }
+    })
+    year.checked = !year.checked;
+    this.location.replaceState(String(this.selectedYear));
     const selectedyear= this.selectedYear ? this.selectedYear : '';
     console.log('year'+ year);
     if (this.selectedYear) {
       console.log('if'+ year);
-      this.launchYears.filter((data) => {
-          if(data.year !== year.year) {
-            data.checked = false;
-          }
-        })
-        year.checked = !year.checked;
-        this.location.replaceState(String(this.selectedYear));
       if (this.islaunchTrue === "" && this.islandedTrue === "") {
         this.spaceXData = this.fetchedData.filter((data) => {
           return data.launch_year === this.selectedYear.toString();
