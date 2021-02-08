@@ -91,18 +91,26 @@ export class LandingPageComponent implements OnInit {
     if (this.selectedYear || (year.year && year.checked )) {
       console.log('if'+ year);
       if (this.islaunchTrue === "" && this.islandedTrue === "") {
+        console.log('1'+ year.year);
+        console.log('1.1'+ this.selectedYear);
         this.spaceXData = this.fetchedData.filter((data) => {
           return data.launch_year === String(year.year) || this.selectedYear;
         });
       } else if (this.islaunchTrue === "") {
+        console.log('2'+ year.year);
+        console.log('2.1'+ this.selectedYear);
         this.spaceXData = this.fetchedData.filter((data) => {
           return data.launch_year === (String(year.year) || this.selectedYear) && data.rocket.first_stage.cores[0].land_success === this.islandedSuccessful;
         });
       } else if (this.islandedTrue === "") {
+        console.log('3'+ year.year);
+        console.log('3.1'+ this.selectedYear);
         this.spaceXData = this.fetchedData.filter((data) => {
           return data.launch_year === (String(year.year) || this.selectedYear) && data.launch_success === this.islaunchSuccessful;
         });
       } else {
+        console.log('4'+ year.year);
+        console.log('4.1'+ this.selectedYear);
         this.spaceXData = this.fetchedData.filter((data) => {
           return data.launch_year === (String(year.year) || this.selectedYear) && data.launch_success === this.islaunchSuccessful && data.rocket.first_stage.cores[0].land_success === this.islandedSuccessful;
         });
