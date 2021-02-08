@@ -75,6 +75,7 @@ export class LandingPageComponent implements OnInit {
     });
   }
   navigate(year?: {year:number,checked:boolean}) {
+    if (year) {
     this.launchYears.filter((data) => {
       if(data.year !== year.year) {
         data.checked = false;
@@ -85,6 +86,7 @@ export class LandingPageComponent implements OnInit {
     const selectedyear= this.selectedYear ? this.selectedYear : '';
     console.log('year'+ year.year);
     console.log('checked'+ year.checked);
+  }
     if ((this.selectedYear || year.year) && year.checked ) {
       console.log('if'+ year);
       if (this.islaunchTrue === "" && this.islandedTrue === "") {
