@@ -106,7 +106,11 @@ export class LandingPageComponent implements OnInit {
       }
     }
      else {
-      console.log('else'+ year);
+      console.log('islandedTrue'+ this.islandedTrue);
+      console.log('islaunchTrue'+ this.islaunchTrue);
+        console.log('selected' + this.selectedYear);
+        console.log('year' + year.year);
+        console.log('checked' + year.checked);
       if(!this.selectedYear && this.islandedTrue === '' && this.islaunchTrue === '') {
         console.log('all');
         console.log('selected' + this.selectedYear);
