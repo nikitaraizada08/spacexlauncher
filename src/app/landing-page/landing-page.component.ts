@@ -75,7 +75,7 @@ export class LandingPageComponent implements OnInit {
     });
   }
   navigate(year?: {year:number,checked:boolean}) {
-    if (year) {
+    if (year.year) {
       console.log('ifYEar' +year.year + year.checked);
     this.launchYears.filter((data) => {
       if(data.year !== year.year) {
