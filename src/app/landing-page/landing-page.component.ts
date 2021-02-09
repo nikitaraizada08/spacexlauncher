@@ -106,7 +106,7 @@ export class LandingPageComponent implements OnInit {
         console.log('3'+ year.year);
         console.log('3.1'+ this.selectedYear);
         this.spaceXData = this.fetchedData.filter((data) => {
-          return data.launch_year === (String(year.year) || this.selectedYear) && data.launch_success === this.islaunchSuccessful;
+          return data.launch_year === (String(year.year) || String(this.selectedYear)) && data.launch_success === this.islaunchSuccessful;
         });
       } else {
         console.log('4'+ year.year);
