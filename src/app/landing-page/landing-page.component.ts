@@ -88,7 +88,7 @@ export class LandingPageComponent implements OnInit {
     console.log('checked'+ year.checked);
   }
   const selectedyear= this.selectedYear ? this.selectedYear : '';
-    if (this.selectedYear || (year.year && year.checked )) {
+    if (year.year && year.checked ) {
       console.log('if'+ year);
       if (this.islaunchTrue === "" && this.islandedTrue === "") {
         console.log('1'+ year.year);
